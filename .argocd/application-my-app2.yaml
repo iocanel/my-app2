@@ -1,0 +1,29 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: my-app2
+spec:
+  destination:
+    server: https://kubernetes.default.svc
+  project: my-app2
+  source:
+    helm:
+      valueFiles:
+      - values.yaml
+    path: .helm/kubernetes/my-app2
+    repoURL: https://github.com/iocanel/my-app2.git
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    retry:
+      backoff:
+        duration: 5s
+        factor: 2
+        maxDuration: 10m
+    syncOptions:
+    - CreateNamespace=true
+    - RespectIgnoreDifferences=true
+    - ApplyOutOfSyncOnly=true

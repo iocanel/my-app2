@@ -1,0 +1,6 @@
+
+app:
+  image: docker.io/iocanel/code-with-quarkus:1.0.0-SNAPSHOT
+  ports:
+    http: 8080
+  namespace: "iocanel"

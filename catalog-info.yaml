@@ -1,0 +1,33 @@
+ 
+apiVersion: backstage.io/v1alpha1
+kind: API
+spec:
+  type: openapi
+  lifecycle: production
+  owner: user:guest
+  definition:
+    $text: ./openapi.yaml
+metadata:
+  name: "my-app2-api"
+--- 
+apiVersion: backstage.io/v1alpha1
+kind: Component
+spec:
+  type: application
+  lifecycle: production
+  owner: user:guest
+  providesApis:
+  - "my-app2-api"
+metadata:
+  name: "my-app2"
+  labels:
+    app.kubernetes.io/name: "my-app2"
+    app.kubernetes.io/version: "1.0-SNAPSHOT"
+    app.quarkus.io/version: 3.17.3
+  annotations:
+    backstage.io/source-location: "url:https://github.com/iocanel/my-app2"
+    argocd/app-name: "my-app2"
+    backstage.io/kubernetes-id: "my-app2"
+  tags:
+  - java
+  - quarkus
